@@ -4,29 +4,26 @@ import AddNewStrainForm from './AddNewStrainForm'
 import {Route, Switch} from 'react-router-dom';
 import NavBar from './NavBar';
 import EditStrainForm from './EditStrainForm';
-// import { createTheme, ThemeProvider} from '@material-ui/core'
+import MedicalContainer from './MedicalContainer'
+import {  ThemeProvider} from '@material-ui/core/styles';
+import Home from './Home'
+import theme from './theme';
 import './App.css';
 
-// const theme = createTheme({
-//   pallete: {
-//       primary: {
-//           main: success.main
-//       },
-//       secondary: {
-//           main: '#727272'
-//       },
-//   },
-//       typography: {
-//           fontFamily: 'sans-serif'
-//       }
-//   }
-// )
+
 
 
 
 function App() {
   const [strains, setStrains] = useState([])
   const [selectStrain, setSelectStrain] = useState('')
+  const [medicalUse, setMedicalUse] = useState([])
+
+  useEffect(() =>{
+    fetch(`http://localhost:9292/medical_use`)
+    .then(res => res.json())
+    .then(setMedicalUse)
+  }, [])
 
   useEffect(() =>{
     fetch(`http://localhost:9292/strains`)
@@ -46,8 +43,11 @@ function App() {
   function handleUpdateStrain(obj){
     setStrains(strains.map(strain => strain.id === obj.id ? obj : strain))
   }
+
   return (
-    <div className="App">
+    <div style={{backgroundColor: 'gray', margin: '0', backgroundImage: "url('https://wallpapercave.com/wp/wp3243306.jpg')", cursor: "url('https://img.icons8.com/doodle/96/000000/up-left-arrow--v2.png') 32 32"
+  }}>
+    <ThemeProvider theme={theme}>
       <NavBar/>
       <Switch>
         <Route path="/strains">
@@ -59,7 +59,15 @@ function App() {
         <Route path='/editstrain'>
         <EditStrainForm selectStrain={selectStrain} onUpdateStrain={handleUpdateStrain}/>
         </Route>
+        <Route path='/medical_use'>
+        <MedicalContainer medicalUse={medicalUse}/>
+        </Route>
+        {/* <Route path='/'>
+          <Home/>
+        </Route> */}
       </Switch>
+      
+    </ThemeProvider>
     </div>
   );
 }

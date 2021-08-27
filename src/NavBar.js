@@ -33,10 +33,11 @@ export default function NavBar() {
             <EcoIcon />
             <EcoIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            MARY JANE'S DATABASE
+          <Typography variant="h5" className={classes.title}>
+            MARY J'S Catalogue
           </Typography>
-          <Button component={NavLink} to='/strains' color="inherit">HOME</Button>
+          <Button component={NavLink} to='/strains' color="inherit">Home</Button>
+          <Button component={NavLink} to='/strains' color="inherit">Strains</Button>
           <Button component={NavLink} to='/addnewstrain' color="inherit">ADD STRAIN</Button>
           <Button component={NavLink} to='/medical_use' color="inherit">Medicinal Use</Button>
         </Toolbar>
